@@ -107,7 +107,7 @@ static inline NSDictionary * NSAttributedStringAttributesFromLabel(TTTAttributed
 
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.alignment = label.textAlignment;
-    paragraphStyle.lineSpacing = label.lineSpacing;
+    paragraphStyle.lineSpacing = label.customLineSpacing;
     paragraphStyle.minimumLineHeight = label.minimumLineHeight > 0 ? label.minimumLineHeight : label.font.lineHeight * label.lineHeightMultiple;
     paragraphStyle.maximumLineHeight = label.maximumLineHeight > 0 ? label.maximumLineHeight : label.font.lineHeight * label.lineHeightMultiple;
     paragraphStyle.lineHeightMultiple = label.lineHeightMultiple;
@@ -1596,7 +1596,7 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
     [coder encodeObject:self.highlightedShadowColor forKey:NSStringFromSelector(@selector(highlightedShadowColor))];
     [coder encodeObject:@(self.kern) forKey:NSStringFromSelector(@selector(kern))];
     [coder encodeObject:@(self.firstLineIndent) forKey:NSStringFromSelector(@selector(firstLineIndent))];
-    [coder encodeObject:@(self.lineSpacing) forKey:NSStringFromSelector(@selector(lineSpacing))];
+    [coder encodeObject:@(self.customLineSpacing) forKey:NSStringFromSelector(@selector(customLineSpacing))];
     [coder encodeObject:@(self.lineHeightMultiple) forKey:NSStringFromSelector(@selector(lineHeightMultiple))];
     [coder encodeUIEdgeInsets:self.textInsets forKey:NSStringFromSelector(@selector(textInsets))];
     [coder encodeInteger:self.verticalAlignment forKey:NSStringFromSelector(@selector(verticalAlignment))];
@@ -1667,8 +1667,8 @@ afterInheritingLabelAttributesAndConfiguringWithBlock:(NSMutableAttributedString
         self.firstLineIndent = [[coder decodeObjectForKey:NSStringFromSelector(@selector(firstLineIndent))] floatValue];
     }
 
-    if ([coder containsValueForKey:NSStringFromSelector(@selector(lineSpacing))]) {
-        self.lineSpacing = [[coder decodeObjectForKey:NSStringFromSelector(@selector(lineSpacing))] floatValue];
+    if ([coder containsValueForKey:NSStringFromSelector(@selector(customLineSpacing))]) {
+        self.customLineSpacing = [[coder decodeObjectForKey:NSStringFromSelector(@selector(customLineSpacing))] floatValue];
     }
 
     if ([coder containsValueForKey:NSStringFromSelector(@selector(minimumLineHeight))]) {
